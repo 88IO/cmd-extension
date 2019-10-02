@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ ! -f $1 ]; then
+    echo Please input File, not Directory.
+    exit
+fi
+
 if [ ${1#*.} != "tex" ]; then
     echo Please input TeX file.
     exit
