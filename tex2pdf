@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ ${1#*.} != "tex" ]; then
+    echo Please input TeX file.
+    exit
+fi
+
+texfile=$1
+basename=${texfile%.*}
+dvifile=${basename}.dvi
+pdffile=${basename}.pdf
+
+platex $texfile
+if [ -f $dvifile ]; then
+    dvipdfmx $dvifile
+fi
+
+if [ -f $pdffile ] && [ -z "$(ps aux | grep "[evince] $pdffile")" ]; then
+    echo CALLED
+    evince $pdffile >> /dev/null 2>&1 &
+fi

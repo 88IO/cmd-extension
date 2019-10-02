@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ ! -f $1 ]; then
+    echo Please input File, not Directory.
+    exit
+fi
+
+last=$(ls --full-time $1 | awk '{print $6"-"$7}')
+
+while true
+do
+    sleep 1
+    current=$(ls --full-time $1 | awk '{print $6"-"$7}')
+
+    if [ $last != $current ]; then
+        tex2pdf $1
+        last=$current
+    fi
+done
