@@ -21,6 +21,5 @@ if [ -f $dvifile ]; then
 fi
 
 if [ -f $pdffile ] && [ -z "$(ps aux | grep "[evince] $pdffile")" ]; then
-    echo CALLED
     evince $pdffile >> /dev/null 2>&1 &
 fi
